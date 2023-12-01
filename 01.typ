@@ -3,13 +3,14 @@
 #set text(
     size: 12pt,
     font: "STIX Two Text",
-    lang: "de",
-    region: "DE",
+    lang: "en",
+    region: "US",
 )
 #show raw: set text(font: "Recursive Mn Lnr St")
 #show math.equation: set text(font: "STIX Two Math")
 #set page(
-    paper: "a4",
+    width: auto,
+    height: auto,
 )
 
 #set document(title: "Advent of Code - Day 01, Part 1", author: "liketechnik")
@@ -20,9 +21,7 @@
 #let first_numbers = lines.map(line => line.find(regNumber))
 #let second_numbers = lines.map(line => line.rev().find(regNumber))
 #let numbers = first_numbers.zip(second_numbers).map(digits => digits.fold("", (a, i) => a + i)).map(s => int(s))
-#let result = numbers.fold(0, (sum, v) => sum + v)
-
-#result
+#let result1 = numbers.fold(0, (sum, v) => sum + v)
 
 #let regNumber = regex("[0-9]|one|two|three|four|five|six|seven|eight|nine")
 #let firstNumbers = lines.map(line => line.find(regNumber))
@@ -49,6 +48,12 @@
     }
 }
 #let asNums  = numbers.map(v => (toNumber(v.at(0)), toNumber(v.at(1)))).map(v => (v.at(0) * 10) + v.at(1))
-#let result = asNums.fold(0, (sum, v) => sum + v)
+#let result2 = asNums.fold(0, (sum, v) => sum + v)
 
-#result
+#figure(caption: "Advent of Code Day 01")[
+    #table(
+        columns: (auto, auto),
+        [Part 1], [Part 2],
+        [#result1], [#result2],
+    )
+]
