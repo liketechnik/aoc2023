@@ -17,14 +17,14 @@
 
 #let exercise = read("./input02").trim()
 #let lines = exercise.split("\n")
-#let revelationRegex = regex("[0-9]+ (blue|red|green)")
-#let setRegex = regex("([0-9]+ (blue|red|green)(, )?)+")
+#let revelationRegex = regex("([0-9]+) (blue|red|green)")
+#let setRegex = regex("(([0-9]+) (blue|red|green)(, )?)+")
 #let games = lines.map(line => {
-    let gameId = line.match(regex("[0-9]+:")).text.find(regex("[0-9]+"))
+    let gameId = line.match(regex("([0-9]+):")).captures.at(0)
     let sets = line.matches(setRegex).map(rawSet => {
         let revelations = rawSet.text.matches(revelationRegex).map(rawRevelation => {
-            let color = rawRevelation.text.find(regex("blue|red|green"))
-            let count = int(rawRevelation.text.find(regex("[0-9]+")))
+            let color = rawRevelation.captures.at(1)
+            let count = int(rawRevelation.captures.at(0))
             (
                 color: color,
                 count: count,
